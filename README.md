@@ -9,7 +9,7 @@ Nous illustrons de façon très élémentaire une courte mise en œuvre concrèt
 Les trois premières « déclinaisons » que nous présentons emploient l'extension [`Pandoc Markdown`](http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown) du [langage de balisage léger](http://fr.wikipedia.org/wiki/Langage_de_balisage_l%C3%A9ger) [`Markdown`](http://daringfireball.net/projects/markdown/). Un excellent [didacticiel en français](http://enacit1.epfl.ch/markdown-pandoc/) de Jean-Daniel Bonjour permettra à tout lecteur de lire _et d'écrire_ en `Markdown` et `Pandoc Markdown` en une petite heure. Le lecteur pressé pourra toujours ouvrir les fichiers du dépôt se terminant par `.md`, `.Rmd` ou `.mdw` avec son éditeur de texte préféré ; il constatera alors que la lecture de ceux-ci est aisée, même sans « mode d'emploi ».
 
 ### Utilisation de `R` et `R Markdown`
-Le fichier `ExemplePlayfair_RMarkdown.Rmd` contient le « document actif » utlisable avec le paquet [R Markdown](http://rmarkdown.rstudio.com/) du logiciel `R`. Il y a plusieurs façons de générer le document « final » `ExemplePlayfair_RMarkdown.html`. La plus simple est d'ouvrir ce fichier avec l'éditeur de fichiers de [RStudio](http://www.rstudio.com/) puis de cliquer sur l'icône `knit HTML`. Le lecteur n'utilisant par `RStudio` pourra lancer `R` comme d'habitude et après avoir installé le paquet [rmarkdown](http://cran.at.r-project.org/web/packages/rmarkdown/index.html) disponible sur le [CRAN](http://cran.at.r-project.org/), taper en ligne de commande les instructions suivantes :
+Le fichier [`ExemplePlayfair_RMarkdown.Rmd`](https://github.com/khinsen/article-statistique-et-societe/raw/master/ExemplePlayfair_RMarkdown.Rmd) contient le « document actif » utilisable avec le paquet [R Markdown](http://rmarkdown.rstudio.com/) du logiciel `R`. Il y a plusieurs façons de générer le document « final » `ExemplePlayfair_RMarkdown.html`. La plus simple est d'ouvrir ce fichier avec l'éditeur de fichiers de [RStudio](http://www.rstudio.com/) puis de cliquer sur l'icône `knit HTML`. Le lecteur n'utilisant par `RStudio` pourra lancer `R` comme d'habitude et après avoir installé le paquet [rmarkdown](http://cran.at.r-project.org/web/packages/rmarkdown/index.html) disponible sur le [CRAN](http://cran.at.r-project.org/), taper en ligne de commande les instructions suivantes :
 
 ```{r}
 library(rmarkdown)
@@ -23,10 +23,15 @@ rmarkdown::render("Playfair.Rmd","pdf_document")
 ```
 
 ### Utilisation du carnet de notes `IPython`
-Le fichier `ExemplePlayfair_IPython.ipynb` contient le « document actif » utlisable avec le [« carnet de notes »](http://ipython.org/notebook.html) (_notebook_) [IPython](http://ipython.org/).
+Le fichier [`ExemplePlayfair_IPython.ipynb`](https://github.com/khinsen/article-statistique-et-societe/raw/master/ExemplePlayfair_IPython.ipynb) contient le « document actif » utilisable avec le [« carnet de notes »](http://ipython.org/notebook.html) (_notebook_) [IPython](http://ipython.org/). Ce document n'est pas fait pour être visualisé directement - c'est bien du texte, plus précisement en notation [JSON](http://json.org/), mais c'est plutôt une notation à l'usage d'un ordinateur. Le service gratuit [Notebook Viewer](http://nbviewer.jupyter.org/) l'affiche joliment, ce que vous pouvez vérifier en cliquant [ici](http://nbviewer.jupyter.org/github/khinsen/article-statistique-et-societe/blob/master/ExemplePlayfair_IPython.ipynb) pour voir notre exemple.
+
+Pour travailler avec ce fichier sur votre propre ordinateur, vous devez installer [Python](http://www.python.org/) et [IPython](http://ipython.org/), mais aussi [NumPy](http://www.numpy.org/), [Pandas](http://pandas.pydata.org/)
+et [matplotlib](http://matplotlib.org/) parce que notre exemple utilise ces trois libraries. Vous pouvez vous faciliter la vie en intallation [Anaconda](https://store.continuum.io/cshop/anaconda/), une distribution Python faite spécialement pour le calcul scientifique, qui contient tous les éléments dans la liste ci-dessus et encore bien plus.
+
+Enfin, il existe des services "cloud computing" qui permettent de travailler, seul ou en collaboration, avec des carnets de notes de ce type. Par exemple, en cliquant [ici](https://wakari.io/sharing/bundle/khinsen/ExemplePlayfair_IPython) vous accédez à notre exemple par le site [Wakari.io](https://wakari.io/).
 
 ### Utilisation du module `Pweave` de `Python`
-Le fichier `ExemplePlayfair_Pweave.mdw` contient le « document actif » utlisable avec le module [Pweave](http://mpastell.com/pweave/) de [Python](https://www.python.org/). Le document final `ExemplePlayfair_Pweave.html` est générer en tapant en [interface système](http://fr.wikipedia.org/wiki/Interface_système) (_shell_) et _pas en ligne de commande Python_ les commandes suivantes :
+Le fichier `ExemplePlayfair_Pweave.mdw` contient le « document actif » utilisable avec le module [Pweave](http://mpastell.com/pweave/) de [Python](https://www.python.org/). Le document final `ExemplePlayfair_Pweave.html` est générer en tapant en [interface système](http://fr.wikipedia.org/wiki/Interface_système) (_shell_) et _pas en ligne de commande Python_ les commandes suivantes :
 
 ```{.bash}
 Pweave -f pandoc ExemplePlayfair_Pweave.mdw
