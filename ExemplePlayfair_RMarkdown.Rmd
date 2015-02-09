@@ -1,0 +1,88 @@
+<!---
+Ce texte « encadré » par <!--- (ci-dessus) et \-\-\> (ci-dessous) est un commentaire ; c'est-à-dire qu'il n'apparaîtra pas dans la version finale, html, pdf, etc. du document. 
+-->
+
+<!---
+Pour générer la version html du document, le plus simple est de d'ouvrir ce fichier avec le logiciel RStudio puis de cliquer sur l'icône « Knit HTML ». Il est presque aussi simple de procéder à partir de l'interface « ligne de commande » seule. Pour cela il faudra d'abord installer le paquet
+rmarkdown puis taper :
+
+library(rmarkdown)
+rmarkdown::render("Playfair.Rmd")
+
+Pour générer une version pdf, il faudra remplacer la dernière commande par :
+
+rmarkdown::render("Playfair.Rmd","pdf_document")
+-->
+
+<!---
+Les syntaxes Markdown et Pandoc Markdown sont très clairement exposé dans le didacticiel de Jean-Daniel Bonjour (http://enacit1.epfl.ch/markdown-pandoc/). Les éléments supplémentaires propres à R Markdown permettant d'inclure du code R exécutable sont exposées sur le site : http://rmarkdown.rstudio.com/. 
+-->
+
+<!---
+Ce qui suit défini le titre, les auteurs, la date est le format de sortie par défaut du document.
+-->
+
+---
+title: "Exemple d'« analyse de données » de William Playfair"
+author: "Christophe Pouzat, Andrew Davison et Konrad Hinsen"
+date: "01/02/2015"
+output: html_document
+---
+
+Les données -- des suites chronologiques du prix du boisseau de blé et du salaire hebdomadaire d'un ouvrier qualifié en Angleterre entre 1565 et 1821 -- ont été compilées par [William Playfair](http://fr.wikipedia.org/wiki/William_Playfair) et publiées en 1821 dans son livre _Letter on our Agricultural Distresses, Their Causes and Remedies._. Ces données sont disponibles « directement » pour les utilisateurs de `R` après installation du paquet `HistData` ; elles sont aussi disponibles au format `csv` à partir du site [Rdatasets](https://github.com/vincentarelbundock/Rdatasets) sur GitHub. C'est cette dernière voie que nous allons employer. L'URL complète des données est : <https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/HistData/Wheat.csv>. Comme elle commence par `https` et non `http`, nous ne pouvons pas utiliser la fonction `read.csv` directement, nous devons télécharger au préalable les données sur notre disque.  Nous pouvons faire cela avec la fonction `download.file` en spécifiant, comme valeur du paramètre formel `method`, la valeur `"wget"` :
+```{r}
+download.file(url="https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/HistData/Wheat.csv",
+              destfile="Wheat.csv",
+              method="wget")
+```
+
+Nous pouvons à présent utiliser `read.csv` pour charger les données dans notre espace de travail :
+```{r}
+blé = read.csv("Wheat.csv")
+```
+Nous vérifions alors rapidement que le téléchargement suivi de la lecture des données s'est déroulé correctement en regardant le nom des variables du tableau de données (`data.frame`) que nous venons juste de créer :
+```{r}
+names(blé)
+```
+
+Nous pouvons également examiner le haut du tableau avec :
+```{r}
+head(blé)
+```
+
+Nous voyons que la première colonne (variable `X`) est inutile et nous la supprimons, puis nous pouvons franciser les impressions de résultats avec :
+```{r}
+blé = blé[,names(blé)[-1]]
+options(OutDec=",")
+names(blé) = c("Année","Blé","Salaire")
+```
+
+Nous examinons enfin le bas de la table :
+```{r}
+tail(blé)
+```
+
+Nous pouvons « finir » cet exemple en reproduisant le [graphe montrant la co-évolution du prix du blé et du salaire](http://fr.wikipedia.org/wiki/William_Playfair#mediaviewer/File:Chart_Showing_at_One_View_the_Price_of_the_Quarter_of_Wheat,_and_Wages_of_Labour_by_the_Week,_from_1565_to_1821.png) en adaptant (et corrigeant !) l'exemple de la documentation de ce jeu de données dans le paquet `HistDat`.:
+
+```{r}
+with(blé, 
+     {
+       salaire_connu = !is.na(Salaire)
+       plot(Année, Blé, type="s", ylim=c(0,105), 
+            ylab="Prix du quart de boisseau de blé (shillings)")
+       polygon(c(Année[salaire_connu],rev(Année[salaire_connu])), 
+               c(Salaire[salaire_connu],rep(0,sum(salaire_connu))), 
+               col="lightskyblue", border=NA)
+    lines(Année[salaire_connu], 
+          Salaire[salaire_connu], lwd=3, col="red")
+    text(1625,10, "Salaire hebdomadaire d'un ouvrier qualifié", 
+         cex=0.8, srt=3, col="red")
+    })
+```
+
+Que nous pouvons comparer à l'original :
+```{r, echo=FALSE}
+download.file("http://upload.wikimedia.org/wikipedia/commons/3/3a/Chart_Showing_at_One_View_the_Price_of_the_Quarter_of_Wheat%2C_and_Wages_of_Labour_by_the_Week%2C_from_1565_to_1821.png?download","GraphePlayfairOriginal.png")
+```
+
+![](GraphePlayfairOriginal.png)
