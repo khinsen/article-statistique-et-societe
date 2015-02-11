@@ -40,6 +40,17 @@ pandoc -s --mathjax ExemplePlayfair_Pweave.md -o ExemplePlayfair_Pweave.html
 
 Cela suppose évidemment que [pandoc](http://johnmacfarlane.net/pandoc/) est installé sur le système.
 
+### Utilisation d'[`ActivePapers pour Python`](http://www.activepapers.org/python-edition/)
+L'approche [ActivePapers](http://www.activepapers.org/) est faite pour des applications bien plus complexes que notre petite exemple. Son point fort est la gestion de grands jeux de données, et la gestion automatique de dépendence entre différentes publications. Néanmoins, nous proposons une [version ActivePapers](https://github.com/khinsen/article-statistique-et-societe/raw/master/ExemplePlayfair.ap) de notre exemple. C'est un fichier [HDF5](http://www.hdfgroup.org/HDF5/), donc un fichier binaire, qu'on ne peut pas simplement afficher à l'écran. On peut inspecter les données à l'intérieur avec [HDFView](http://www.hdfgroup.org/products/java/hdfview/) ou d'autres logiciels qui gèrent le format HDF5.
+
+Pour pleinement exploiter un ActivePaper, il faut [installer le gestionnaire `aptool`](http://www.activepapers.org/python-edition/installation.html). Téléchargez [`ExemplePlayfair.ap`](https://github.com/khinsen/article-statistique-et-societe/raw/master/ExemplePlayfair.ap), puis dans le repertoire ou vous avez copié ce fichier, entrez les commandes suivantes:
+
+ - `aptool ls -l` pour voir le contenu
+ - `aptool checkout documentation` pour extraire une description et les résultats des calculs, notamment le graphe
+ - `aptool checkout code` pour extraire les trois scripts Python
+
+Pour approfondir, suivez le [tutoriel](http://www.activepapers.org/python-edition/tutorial.html).
+
 ## Quelques liens utiles
 
 Nous ne donnont ici que des liens vers des logiciels « libres » :
