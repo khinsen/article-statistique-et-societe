@@ -1,0 +1,60 @@
+% Exemple d'« analyse de données » de William Playfair
+% Christophe Pouzat; Andrew Davison; Konrad Hinsen
+% 6 février 2015
+
+Nous utilisons les libraries [pandas](http://pandas.org/) pour la gestion des données et [matplotlib](http://matplotlib.org/) pour générer des graphes.
+
+<<>>=
+import pandas as pd
+import matplotlib.pyplot as plt
+@
+
+Les données -- des suites chronologiques du prix du [boisseau](http://fr.wikipedia.org/wiki/Boisseau) de blé et du salaire hebdomadaire d'un ouvrier qualifié en Angleterre entre 1565 et 1821 -- ont été compilées par [William Playfair](http://fr.wikipedia.org/wiki/William_Playfair) et publiées en 1821 dans son livre _Letter on our Agricultural Distresses, Their Causes and Remedies._. Ces données sont disponibles au format `csv` à partir du site [Rdatasets](https://github.com/vincentarelbundock/Rdatasets) sur GitHub. L'URL complète des données est : <https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/HistData/Wheat.csv>. Nous pouvons les lire directement avec pandas :
+
+<<>>=
+ble = pd.read_csv("https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/HistData/Wheat.csv")
+
+@
+
+Nous vérifions alors rapidement que le téléchargement suivi de la lecture des données s'est déroulé correctement en regardant le nom des variables du tableau de données que nous venons juste de créer :
+
+<<term = True>>=
+ble.columns
+
+@
+
+Nous pouvons également examiner le haut du tableau avec :
+
+<<term = True>>=
+ble.head()
+@
+
+Nous voyons que la première colonne (intitulée `Unnamed: 0`) est inutile et nous la supprimons, puis nous pouvons franciser les impressions de résultats avec :
+
+<<term = True>>=
+del ble[ble.columns[0]]
+ble.columns = ["Année", "Blé", "Salaire"]
+@
+
+Nous examinons enfin le bas de la table :
+
+<<term = True>>=
+ble.tail()
+@
+
+Nous pouvons « finir » cet exemple en reproduisant le [graphe montrant la co-évolution du prix du blé et du salaire](http://fr.wikipedia.org/wiki/William_Playfair#mediaviewer/File:Chart_Showing_at_One_View_the_Price_of_the_Quarter_of_Wheat,_and_Wages_of_Labour_by_the_Week,_from_1565_to_1821.png):
+
+<<term = True>>=
+plt.step(ble["Année"], ble["Blé"], color="black", where="post")
+plt.ylabel(u"Prix du quart de boisseau de blé (shillings)")
+
+salaire_connu = ble.dropna(how="any")
+plt.plot(salaire_connu["Année"], salaire_connu["Salaire"], color="red", linewidth=3)
+plt.fill_between(salaire_connu["Année"], salaire_connu["Salaire"], facecolor="LightSkyBlue")
+plt.text(1565, 10, u"Salaire hebdomadaire d'un ouvrier qualifié",
+         color="red", fontsize=6, rotation=2)
+
+plt.ylim(-5, 105)
+plt.show()
+@
+
