@@ -69,7 +69,7 @@ Nous ne donnons ici que des liens vers des logiciels « libres » :
 	+ [reStructuredText](<http://docutils.sourceforge.net/rst.html>), le langage de documentation Python ;
 	+ [Org mode](<http://orgmode.org/fr/index.html>), voir ci-dessus ;
 * Logiciels de [gestion de version](http://fr.wikipedia.org/wiki/Gestion_de_versions) :
-	+ [RCS](http://www.gnu.org/software/rcs/) le plus ancien (ou presque) logiciel de ce type, simple à utilisé mais limité aux petits projets (un seul fichier) ; les logiciels qui suivent sont dicutés dans l'article ;
+	+ [RCS](http://www.gnu.org/software/rcs/) le plus ancien (ou presque) logiciel de ce type, simple a utiliser mais limité aux petits projets (un seul fichier) ; les logiciels qui suivent sont dicutés dans l'article ;
 	+ [Git](<http://git-scm.com/>) ;
 	+ [Mercurial](<http://mercurial.selenic.com/>) ;
 	+ [Bazaar](<http://bazaar.canonical.com/en/>) ;
