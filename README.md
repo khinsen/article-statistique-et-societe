@@ -19,7 +19,7 @@ rmarkdown::render("Playfair_RMarkdown.Rmd")
 pour générer une sortie au format `PDF` il suffit de remplacer la seconde commande par :
 
 ```{r}
-rmarkdown::render("Playfair.Rmd","pdf_document")
+rmarkdown::render("Playfair_RMarkdown.Rmd","pdf_document")
 ```
 
 où le deuxième paramètre formel contrôle le format du fichier de sortie qui s'appellera ici `Playfair.pdf`.
